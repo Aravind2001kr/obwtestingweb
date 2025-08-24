@@ -123,6 +123,7 @@
                             </div>
                         </div> -->
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="location.html" class="nav-item nav-link">Port Coverge</a>
                     </div>
                     <div class="ms-auto d-none d-lg-flex">
                         <!-- <a class="btn btn-sm-square btn-primary ms-2" href=""><i class="fab fa-facebook-f"></i></a>
@@ -594,7 +595,7 @@
                 </div>
     
                 <!-- Contact Form -->
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                <!-- <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                     <h2 class="mb-4">Send Us a Message</h2>
                     <div class="row g-3">
                         <div class="col-sm-6">
@@ -636,7 +637,166 @@
                             <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
+          
+                <div class="col-lg-6" style="max-width:720px;margin:24px auto;">
+    <h2 class="mb-4">Send Us a Message</h2>
+
+    <form id="contactForm" novalidate>
+      <div class="row g-3">
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="name" placeholder="Your Name" required />
+            <label for="name">* Name</label>
+            <div class="invalid-feedback">Please enter your name.</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="company" placeholder="Your Company" required />
+            <label for="company">* Company</label>
+            <div class="invalid-feedback">Please enter your company name.</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="tel" class="form-control" id="phone" placeholder="Your Phone" required
+                   pattern="^\+?[0-9][0-9\s\-()]{6,}$" />
+            <label for="phone">* Phone</label>
+            <div class="invalid-feedback">Please enter a valid phone number.</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="email" class="form-control" id="email" placeholder="Your Email" required />
+            <label for="email">* Email</label>
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 130px" required></textarea>
+            <label for="message">* Message</label>
+            <div class="invalid-feedback">Please enter your message.</div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <button id="submitBtn" class="btn btn-primary" type="submit">
+            Submit <span class="spinner" aria-hidden="true"></span>
+          </button>
+          <div id="formStatus" class="status" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const statusBox = document.getElementById('formStatus');
+
+      function setLoading(isLoading) {
+        if (isLoading) {
+          submitBtn.classList.add('loading');
+          submitBtn.setAttribute('disabled', 'true');
+        } else {
+          submitBtn.classList.remove('loading');
+          submitBtn.removeAttribute('disabled');
+        }
+      }
+
+      function showStatus(type, msg) {
+        statusBox.className = 'status show ' + (type === 'success' ? 'success' : 'error');
+        statusBox.textContent = msg;
+      }
+
+      function validateField(input) {
+        const wrapper = input.closest('.form-floating');
+        if (!wrapper) return;
+        if (!input.checkValidity()) {
+          wrapper.classList.add('invalid');
+        } else {
+          wrapper.classList.remove('invalid');
+        }
+      }
+
+      // Real-time validation feedback
+      form.querySelectorAll('.form-control').forEach(el => {
+        el.addEventListener('input', () => validateField(el));
+        el.addEventListener('blur', () => validateField(el));
+      });
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        statusBox.className = 'status'; // reset
+
+        // Validate all fields
+        let valid = true;
+        form.querySelectorAll('.form-control').forEach(el => {
+          validateField(el);
+          if (!el.checkValidity()) valid = false;
+        });
+        if (!valid) {
+          showStatus('error', 'Please fix the highlighted fields and try again.');
+          return;
+        }
+
+        const payload = {
+          name: document.getElementById('name').value.trim(),
+          company: document.getElementById('company').value.trim(),
+          phone: document.getElementById('phone').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          message: document.getElementById('message').value.trim()
+        };
+
+        setLoading(true);
+        try {
+          const resp = await fetch('https://www.obwtesting.com/api/email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          // Try to parse JSON, even on non-2xx
+          let data = null;
+          try { data = await resp.json(); } catch (_) {}
+
+          if (resp.ok) {
+            showStatus('success', data?.message || 'Thanks! Your message has been sent.');
+            form.reset();
+          } else {
+            const serverMsg = (data && (data.error || data.message)) ? String(data.error || data.message) : '';
+            showStatus('error', serverMsg || `Request failed with status ${resp.status}. Please try again.`);
+          }
+        } catch (err) {
+          showStatus('error', 'Network error. Please check your connection and try again.');
+        } finally {
+          setLoading(false);
+        }
+      });
+    })();
+  </script>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
             </div>
         </div>
     </div>

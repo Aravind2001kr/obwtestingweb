@@ -110,6 +110,7 @@
                         <a href="service.html" class="nav-item nav-link">Services</a>
                  
                         <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                         <a href="location.html" class="nav-item nav-link">Port Coverge</a>
                     </div>
                 <div class="ms-auto d-none d-lg-flex">
                         <!-- <a class="btn btn-sm-square btn-primary ms-2" href=""><i class="fab fa-facebook-f"></i></a>
@@ -194,39 +195,152 @@
             </div>
         </div>
         <div class="row g-5">
-            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                <form>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                <label for="name">Your Name</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                <label for="email">Your Email</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                <label for="subject">Subject</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 200px"></textarea>
-                                <label for="message">Message</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary py-3 px-5" type="submit">Send Message</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                      <div class="col-lg-6" style="max-width:720px;margin:24px auto;">
+    <h2 class="mb-4">Send Us a Message</h2>
+
+    <form id="contactForm" novalidate>
+      <div class="row g-3">
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="name" placeholder="Your Name" required />
+            <label for="name">* Name</label>
+            <div class="invalid-feedback">Please enter your name.</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="company" placeholder="Your Company" required />
+            <label for="company">* Company</label>
+            <div class="invalid-feedback">Please enter your company name.</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="tel" class="form-control" id="phone" placeholder="Your Phone" required
+                   pattern="^\+?[0-9][0-9\s\-()]{6,}$" />
+            <label for="phone">* Phone</label>
+            <div class="invalid-feedback">Please enter a valid phone number.</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="email" class="form-control" id="email" placeholder="Your Email" required />
+            <label for="email">* Email</label>
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 130px" required></textarea>
+            <label for="message">* Message</label>
+            <div class="invalid-feedback">Please enter your message.</div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <button id="submitBtn" class="btn btn-primary" type="submit">
+            Submit <span class="spinner" aria-hidden="true"></span>
+          </button>
+          <div id="formStatus" class="status" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const statusBox = document.getElementById('formStatus');
+
+      function setLoading(isLoading) {
+        if (isLoading) {
+          submitBtn.classList.add('loading');
+          submitBtn.setAttribute('disabled', 'true');
+        } else {
+          submitBtn.classList.remove('loading');
+          submitBtn.removeAttribute('disabled');
+        }
+      }
+
+      function showStatus(type, msg) {
+        statusBox.className = 'status show ' + (type === 'success' ? 'success' : 'error');
+        statusBox.textContent = msg;
+      }
+
+      function validateField(input) {
+        const wrapper = input.closest('.form-floating');
+        if (!wrapper) return;
+        if (!input.checkValidity()) {
+          wrapper.classList.add('invalid');
+        } else {
+          wrapper.classList.remove('invalid');
+        }
+      }
+
+      // Real-time validation feedback
+      form.querySelectorAll('.form-control').forEach(el => {
+        el.addEventListener('input', () => validateField(el));
+        el.addEventListener('blur', () => validateField(el));
+      });
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        statusBox.className = 'status'; // reset
+
+        // Validate all fields
+        let valid = true;
+        form.querySelectorAll('.form-control').forEach(el => {
+          validateField(el);
+          if (!el.checkValidity()) valid = false;
+        });
+        if (!valid) {
+          showStatus('error', 'Please fix the highlighted fields and try again.');
+          return;
+        }
+
+        const payload = {
+          name: document.getElementById('name').value.trim(),
+          company: document.getElementById('company').value.trim(),
+          phone: document.getElementById('phone').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          message: document.getElementById('message').value.trim()
+        };
+
+        setLoading(true);
+        try {
+          const resp = await fetch('https://www.obwtesting.com/api/email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          // Try to parse JSON, even on non-2xx
+          let data = null;
+          try { data = await resp.json(); } catch (_) {}
+
+          if (resp.ok) {
+            showStatus('success', data?.message || 'Thanks! Your message has been sent.');
+            form.reset();
+          } else {
+            const serverMsg = (data && (data.error || data.message)) ? String(data.error || data.message) : '';
+            showStatus('error', serverMsg || `Request failed with status ${resp.status}. Please try again.`);
+          }
+        } catch (err) {
+          showStatus('error', 'Network error. Please check your connection and try again.');
+        } finally {
+          setLoading(false);
+        }
+      });
+    })();
+  </script>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                 <iframe class="w-100 h-100"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3412.3653510938586!2d121.55998661511597!3d31.164403981491927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35b27044e5555555%3A0x1111111111111111!2sBuilding%201%2C%20Aideli%2C%20No.%20688%20East%20Kangqiao%20Road%2C%20Pudong%20District%2C%20Shanghai%2C%20China!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
