@@ -114,7 +114,7 @@
         <a href="index.html" class="h1 text-white mb-0">
           <img src="./img/icon.png" alt="OBW Icon"
             style="height:60px; width:60px; vertical-align:middle; margin-right:5px; background-color:#fff; border-radius:4px; padding:2px;">
-          OBW<span>Testing</span>
+     OBW Testing Laboratory
         </a>
         <div class="d-flex">
           <i class="bi bi-envelope fs-2"></i>
@@ -134,9 +134,10 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-white py-lg-0 px-lg-3">
         <a href="index.html" class="navbar-brand d-lg-none d-flex align-items-center">
           <img src="./img/icon.png" alt="OBW Icon" style="height:30px; width:30px; margin-right:8px;">
-          <h1 class="text-primary m-0" style="font-size:1.5rem;">
-            OBW<span class="text-dark">Testing</span>
-          </h1>
+        <div class="d-flex flex-column lh-1">
+          <span class="text-primary fw-bold" style="font-size:1.2rem;">OBW Testing</span>
+          <span class="text-primary fw-bold" style="font-size:1rem;">Laboratory</span>
+        </div>
         </a>
         <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
           <span class="navbar-toggler-icon"></span>
@@ -144,6 +145,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <div class="navbar-nav">
             <a href="index.html" class="nav-item nav-link">Home</a>
+              <a href="about.html" class="nav-item nav-link">About</a>
             <a href="service.html" class="nav-item nav-link">Services</a>
                   <a href="contact.html" class="nav-item nav-link">Contact</a>
             <a href="coverage.html" class="nav-item nav-link active">Port Coverage</a>
@@ -172,7 +174,7 @@
       <div class="row g-5 py-5">
         <div class="col-lg-6 pe-lg-5">
           <a href="index.html" class="navbar-brand">
-            <h1 class="h1 text-primary mb-0">OBW<span class="text-white">Testing</span></h1>
+            <h1 class="h1 text-primary mb-0">    OBW Testing Laboratory</h1>
           </a>
           <p class="fs-5 mb-4">OBW Testing & Consultancy Co., Ltd provides precise, reliable, and timely water testing
             solutions for industries, municipalities, and private clients.</p>
@@ -218,15 +220,73 @@
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    const ports = [
-      { country: "China", lat: 31.2304, lng: 121.4737, ports: ["We cover all the ports in China"] },
-      { country: "Singapore", lat: 1.3521, lng: 103.8198, ports: ["Singapore Port"] },
-      { country: "Australia", lat: -31.9505, lng: 115.8605, ports: ["Fremantle, Henderson, Kwinana, Bunbury, Albany, Geraldton", "Sydney, Port Kembla, Newcastle", "Brisbane, Melbourne, Geelong, Hastings, Portland"] },
-      { country: "UAE", lat: 25.276987, lng: 55.296249, ports: ["Dubai", "Fujairah", "Khor Fakkan", "Abu Dhabi"] },
-      { country: "Brazil", lat: -22.9068, lng: -43.1729, ports: ["Rio De Janeiro, Porto do Açu, Santos", "Vitoria, Tubarao, São Sebastião", "Belém, Santarém, Recife, Salvador, Fortaleza"] },
-      { country: "USA", lat: 29.7604, lng: -95.3698, ports: ["New Orleans, Tampa, Houston", "New York, Baltimore, Norfolk, Savannah", "Los Angeles, Long Beach, San Francisco"] },
-      { country: "Turkey", lat: 41.0082, lng: 28.9784, ports: ["Istanbul, Tuzla, Yalova", "Izmir, Aliaga, Gemlik, Eren", "Iskenderun, Mersina, Antalya, Samsun"] }
-    ];
+  const ports = [
+  { country: "China", lat: 31.2304, lng: 121.4737, ports: [
+    "We provide coverage across all ports."
+    ] },
+  { country: "Singapore", lat: 1.3521, lng: 103.8198, ports: ["We provide coverage across all ports.."] },
+  { country: "Hong Kong", lat: 22.3193, lng: 114.1694, ports: ["We provide coverage across all ports.."] },
+  { country: "Australia", lat: -31.9505, lng: 115.8605, ports: [
+      "Western Australia: Freemantle / Henderson, Kwinana, Bunbury, Albany, Geraldton",
+      "New South Wales: Sydney, Port Kembla, Newcastle",
+      "Queensland: Brisbane",
+      "Victoria: Melbourne, Geelong, Hastings, Portland"
+    ] },
+  { country: "New Zealand", lat: -41.2866, lng: 174.7756, ports: ["We provide coverage across all ports."] },
+  { country: "Japan", lat: 35.6895, lng: 139.6917, ports: ["We provide coverage across all ports."] },
+  { country: "South Korea", lat: 37.5665, lng: 126.978, ports: ["Busan", "Incheon", "Gwangyang", "Ulsan"] },
+  { country: "Malaysia", lat: 3.139, lng: 101.6869, ports: [
+      "Port Klang", "Pasir Gudang", "Sungai Linggi", "Port Dickson", "Tanjung Pelapas"
+    ] },
+  { country: "Vietnam", lat: 21.0285, lng: 105.8542, ports: ["Hai Phong", "Ho Chi Minh"] },
+  { country: "Indonesia", lat: -6.2088, lng: 106.8456, ports: ["Depend on availability (transportation may apply)"] },
+  { country: "Thailand", lat: 13.7563, lng: 100.5018, ports: ["Depend on availability (transportation may apply)"] },
+  { country: "India", lat: 19.076, lng: 72.8777, ports: [
+      "We provide coverage across all ports."
+    ] },
+  { country: "Sri Lanka", lat: 6.9271, lng: 79.8612, ports: ["We provide coverage across all ports."] },
+  { country: "UAE", lat: 25.276987, lng: 55.296249, ports: ["Dubai", "Fujairah", "Khor Fakkan", "Abu Dhabi"] },
+  { country: "Oman", lat: 23.588, lng: 58.3829, ports: ["Sohar*", "Muscat*", "Duqm*"] },
+  { country: "Saudi Arabia", lat: 24.7136, lng: 46.6753, ports: ["Dammam*", "Al Jubail*"] },
+  { country: "Egypt", lat: 30.0444, lng: 31.2357, ports: ["Alexandra", "Other Ports (transportation charges apply)"] },
+  { country: "Kenya", lat: -1.2921, lng: 36.8219, ports: ["Mombasa (transportation charges apply)"] },
+  { country: "South Africa", lat: -33.9249, lng: 18.4241, ports: ["Case by case"] },
+  { country: "Spain", lat: 40.4168, lng: -3.7038, ports: ["We provide coverage across all ports."] },
+  { country: "Gibraltar", lat: 36.1408, lng: -5.3536, ports: ["We provide coverage across all ports."] },
+  { country: "France", lat: 48.8566, lng: 2.3522, ports: ["We provide coverage across all ports. (charges may apply)"] },
+  { country: "Germany", lat: 52.52, lng: 13.405, ports: ["We provide coverage across all ports.(charges may apply)"] },
+  { country: "Belgium", lat: 50.8503, lng: 4.3517, ports: ["Antwerp", "Zeebrugge", "Ghent"] },
+  { country: "Netherlands", lat: 52.3676, lng: 4.9041, ports: ["We provide coverage across all ports."] },
+  { country: "Portugal", lat: 38.7169, lng: -9.139, ports: ["Lisbon", "Sines", "Leixões (on request)"] },
+  { country: "United Kingdom", lat: 51.5074, lng: -0.1278, ports: ["London", "Felixstowe", "Southampton", "Liverpool (on request)"] },
+  { country: "Denmark", lat: 55.6761, lng: 12.5683, ports: ["On request (transportation charges may apply)"] },
+  { country: "Italy", lat: 41.9028, lng: 12.4964, ports: ["On request"] },
+  { country: "Argentina", lat: -34.6037, lng: -58.3816, ports: ["On request (charges apply)"] },
+  { country: "Brazil", lat: -22.9068, lng: -43.1729, ports: [
+      "Rio De Janeiro, Porto do Açu, Angra dos Reis, Porto de Itaguaí, Santos",
+      "Vitoria, Tubarao, São Sebastião, Guarujá, Imbituba, Paranagua",
+      "Itacoatiara, Vila do Conde, Belém, Santarém, Cabedelo, Natal, Itaqui, Recife, Fortaleza, Pecém, Aratu, Salvador"
+    ] },
+  { country: "Greece", lat: 37.9838, lng: 23.7275, ports: ["On request"] },
+  { country: "Taiwan", lat: 25.033, lng: 121.5654, ports: ["On request"] },
+  { country: "Turkey", lat: 41.0082, lng: 28.9784, ports: [
+      "Istanbul, Tuzla, Yalova",
+      "Izmir, Aliaga, Icdas, Eregli, Zonguldak, Gemlik, Eren",
+      "Iskenderun, Isdemir, Mersina, Antalia, Samsun"
+    ] },
+  { country: "Chile", lat: -33.4489, lng: -70.6693, ports: ["On request"] },
+  { country: "Canada", lat: 45.4215, lng: -75.6972, ports: ["On request"] },
+  { country: "Panama", lat: 8.9833, lng: -79.5167, ports: ["Balboa", "Cristobal"] },
+  { country: "USA", lat: 29.7604, lng: -95.3698, ports: [
+      "New Orleans, Tampa (Florida), Houston",
+      "New York, Baltimore (Maryland), Norfolk (Virginia), Savannah (Georgia)",
+      "Vancouver (Washington), Long Beach, Los Angeles, San Francisco",
+      "Other ports on request"
+    ] },
+  { country: "Philippines", lat: 14.5995, lng: 120.9842, ports: ["On request"] },
+  { country: "Other Europe Ports", lat: 50.1109, lng: 8.6821, ports: ["On request"] }
+];
+
 
     const bounds = [];
     ports.forEach(p => {
